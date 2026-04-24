@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .transition-smooth{
+    @apply transition-all duration-500 ease-in-out;
+  }
+
+  .btn {
+    @apply inline-flex justify-center items-center px-6 py-2 font-medium rounded-full  transition-all duration-500 ease-in-out;
+  }
+  .btn-primary {
+    @apply bg-[#A77F66] text-white hover:bg-black hover:scale-105 
+  }
+  
+  .responsive-flex {
+    @apply flex flex-col lg:flex-row
+  }
+  .responsive-grid-3{
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+  }
+  .responsive-grid-2{
+    @apply grid grid-cols-1 lg:grid-cols-2
+  }
+
+  .card{
+    @apply overflow-hidden px-8 py-4;
+  }
+  .cover-card {
+    @apply w-full object-cover;
+  }
+  .text-card {
+    @apply flex flex-col text-center gap-4;
+  }
+  .product-card{
+    @apply group bg-gray-100 shadow-md transition-all duration-500 ease-in-out;
+  }
+  
+  .horizontal-line {
+    @apply w-full border border-gray-200;
+  }
+}
+
+@layer base {
+  body {
+    font-family: 'Figtree', sans-serif;
+    @apply text-base font-normal text-[#222222];
+  }
+
+  h1 {
+    font-family: 'Marcellus', serif;
+    @apply text-3xl md:text-5xl text-[#222222] ;
+  }
+
+  h2 {
+    font-family: 'Marcellus', serif;
+    @apply text-3xl text-[#222222];
+  }
+
+  h3 {
+    @apply text-lg uppercase font-medium text-[#222222];
+  }
+
+  h4 {
+    @apply text-lg uppercase font-medium text-[#808080];
+  }
+
+  p,span {
+    @apply text-base text-[#808080] ;
+  }
+}
