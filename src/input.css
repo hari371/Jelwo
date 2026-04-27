@@ -8,7 +8,7 @@
   }
 
   .btn {
-    @apply inline-flex justify-center items-center px-6 py-2 font-medium rounded-full  transition-all duration-500 ease-in-out;
+    @apply inline-flex justify-center items-center px-6 py-3 font-medium rounded-full  transition-all duration-500 ease-in-out;
   }
   .btn-primary {
     @apply bg-[#A77F66] text-white hover:bg-black hover:scale-105 
@@ -31,14 +31,19 @@
     @apply w-full object-cover;
   }
   .text-card {
-    @apply flex flex-col text-center gap-4;
+    @apply flex flex-col text-center bg-white z-10 gap-4;
   }
   .product-card{
-    @apply group bg-gray-100 shadow-md transition-all duration-500 ease-in-out;
+    @apply bg-gray-100 shadow-md transition-all duration-500 ease-in-out;
   }
   
   .horizontal-line {
     @apply w-full border border-gray-200;
+  }
+
+  .logo-animate {
+    left: 50%;
+    transform: translateX(-50%) rotate(720deg);
   }
 }
 
@@ -50,12 +55,12 @@
 
   h1 {
     font-family: 'Marcellus', serif;
-    @apply text-3xl md:text-5xl text-[#222222] ;
+    @apply text-3xl md:text-5xl lg:text-7xl text-[#222222] ;
   }
 
   h2 {
     font-family: 'Marcellus', serif;
-    @apply text-3xl text-[#222222];
+    @apply text-3xl  md:text-5xl text-[#222222];
   }
 
   h3 {
