@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="./dist/output.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="icon" type="img/png" href="https://jelwo.myshopify.com/cdn/shop/files/favicon.png?crop=center&height=32&v=1745237450&width=32">
     <title >Jelwo</title>
 </head>
@@ -16,7 +17,7 @@
         <div class="w-[90%] mx-auto py-3 flex items-center justify-between border-b border-gray-100">
             <div class="flex gap-8 py-4">
                 <div>
-                    <img alt="logo" class="w-28 h-auto"
+                    <img alt="logo" class="w-28 h-auto sc"
                         src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-logo.png?v=1744805986&width=352"/>
                 </div>
                 <div class="border-l-2 border-gray-200"></div>
@@ -85,8 +86,96 @@
         </div>
     </nav>
 
+    <section>
+      <div class="relative overflow-hidden">
+        <div id="carousel" class=" flex h-full transition-transform duration-700">
+          <div class="min-w-full h-full relative hero-slide">
+            <img 
+              src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-slider-1.jpg?v=1742540741&width=1920"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
+              <img 
+                class="slide-in w-20 sm:w-24 md:w-32 mb-4 sm:mb-6"
+                src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-slider-label.png?v=1742534520&width=352"
+              />
+              <div class="card text-card bg-transparent gap-6">
+                <h1 class="max-w-xl mx-auto fade-in">
+                  Jewelry is our passion
+                </h1>
+                <div>
+                  <button class="btn btn-primary px-6 py-2 sm:px-8 sm:py-3 slide-up text-sm sm:text-base">
+                    Shop Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full h-full relative hero-slide">
+            <img 
+              src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-slider-2.jpg?v=1742540741&width=1920"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
+              <img 
+                class="slide-in w-20 sm:w-24 md:w-32 mb-4 sm:mb-6"
+                src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-slider-label.png?v=1742534520&width=352"
+              />
+              <div class="card text-card bg-transparent gap-6">
+                <h1 class="max-w-xl mx-auto fade-in">
+                  Jewelry made with love
+                </h1>
+                <div>
+                  <button class="btn btn-primary px-6 py-2 sm:px-8 sm:py-3 slide-up text-sm sm:text-base">
+                    Shop Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full h-full relative hero-slide">
+            <img 
+              src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-slider-3.jpg?v=1742540741&width=1920"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
+              <img 
+                class="slide-in w-20 sm:w-24 md:w-32 mb-4 sm:mb-6"
+                src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-slider-label.png?v=1742534520&width=352"
+              />
+              <div class="card text-card bg-transparent gap-6">
+                <h1 class="max-w-xl mx-auto fade-in">
+                  Elegance is our obsession
+                </h1>
+                <div>
+                  <button class="btn btn-primary px-6 py-2 sm:px-8 sm:py-3 slide-up text-sm sm:text-base">
+                    Shop Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="prevSlide()" 
+          class="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-white/50 hover:bg-white px-4 py-2 rounded-full transition-smooth">
+          <i class="fa-solid fa-angle-left"></i>
+        </button>
+
+        <button onclick="nextSlide()" 
+          class="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-white/50 hover:bg-white px-4 py-2 rounded-full transition-smooth">
+          <i class="fa-solid fa-angle-right"></i>
+        </button>
+      </div>
+    </section>
+
     
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="./main.js"></script>
+
 </body>
 
 </html>
