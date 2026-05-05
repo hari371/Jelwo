@@ -38,7 +38,7 @@
   }
   
   .horizontal-line {
-    @apply w-full border border-gray-200;
+    @apply w-full border border-gray-100;
   }
 
   .slide-in {
@@ -77,10 +77,19 @@
     opacity: 1;
     transform: translateY(0);
   }
-  
+
   .swiper-slide:hover .overlay {
   background-color: rgba(255, 255, 255, 0.4); /* transparent white film */
-}
+  }
+
+  .flip-icon {
+    display: inline-block;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+  }
+  .group:hover .flip-icon {
+    transform: rotateY(180deg);
+  }
 }
 
 @layer base {

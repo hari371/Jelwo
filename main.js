@@ -89,9 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-//Popular category 
+//Swipper
 document.addEventListener("DOMContentLoaded", () => {
-  const swiper = new Swiper(".swiper", {
+
+  // Category Swiper
+  const categorySwiper = new Swiper(".categorySwiper", {
     slidesPerView: 1,
     spaceBetween: 20,
     loop: true,
@@ -99,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     autoplay: {
       delay: 2500,
       disableOnInteraction: false,
+      pauseOnMouseEnter: true
     },
 
     breakpoints: {
@@ -107,4 +110,40 @@ document.addEventListener("DOMContentLoaded", () => {
       1024: { slidesPerView: 3 }
     },
   });
+
+  // Testimonial Swiper
+  const testimonialSwiper = new Swiper(".testimonialSwiper", {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true
+    },
+
+    breakpoints: {
+      1024: { slidesPerView: 2 }
+    },
+  });
+
+  const newsSwiper = new Swiper(".newsSwiper", {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true
+    },
+
+    breakpoints: {
+      0: { slidesPerView: 1 },
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 }
+    },
+  });
+
 });
