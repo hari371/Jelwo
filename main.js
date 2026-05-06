@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  const multiSwiper = new Swiper(".videoSwiper", {
+  const videoSwiper = new Swiper(".videoSwiper", {
     slidesPerView: 1,
     spaceBetween: 20,
     loop: true,
@@ -158,8 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     navigation: {
-      nextEl: ".multi-next",
-      prevEl: ".multi-prev",
+      nextEl: ".video-next",
+      prevEl: ".video-prev",
     },
 
     breakpoints: {
