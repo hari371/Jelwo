@@ -146,4 +146,28 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
+  const multiSwiper = new Swiper(".videoSwiper", {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true
+    },
+
+    navigation: {
+      nextEl: ".multi-next",
+      prevEl: ".multi-prev",
+    },
+
+    breakpoints: {
+      640: { slidesPerView: 2 },
+      768: { slidesPerView: 3 },
+      1024: { slidesPerView: 4 },
+      1280: { slidesPerView: 5 }
+    },
+  });
+
 });
