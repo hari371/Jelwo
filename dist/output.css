@@ -883,6 +883,11 @@ p,span {
   margin-bottom: 5rem;
 }
 
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -985,6 +990,10 @@ p,span {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[\] {
+  width: ;
 }
 
 .min-w-full {

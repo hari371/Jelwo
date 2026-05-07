@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let index = 0;
 
   if (!slides.length || !carousel) return;
-
-  // RESET all animations
   function resetAnimations(slide) {
     slide.querySelectorAll(".slide-in").forEach(el => {
       el.classList.remove("slide-in-active");
@@ -21,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // RUN animation (with forced reflow fix)
   function runAnimation(slide) {
     const logo = slide.querySelector(".slide-in");
     const heading = slide.querySelector(".fade-in");
@@ -29,15 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     [logo, heading, button].forEach(el => {
       if (!el) return;
-
-      // Force browser to apply initial state
       el.classList.remove(
         "slide-in-active",
         "fade-in-active",
         "slide-up-active"
       );
 
-      void el.offsetWidth; // 🔥 important (forces reflow)
+      void el.offsetWidth;
     });
 
     if (logo) {
@@ -59,19 +54,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // UPDATE slide
   function updateSlide() {
     slides.forEach(slide => resetAnimations(slide));
 
     carousel.style.transform = `translateX(-${index * 100}%)`;
-
-    // Wait for slide movement to finish
     setTimeout(() => {
       runAnimation(slides[index]);
     }, 600);
   }
 
-  // BUTTONS
   window.nextSlide = function () {
     index = (index + 1) % slides.length;
     updateSlide();
@@ -82,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateSlide();
   };
 
-  // INITIAL LOAD (important delay so animation actually shows)
   setTimeout(() => {
     runAnimation(slides[index]);
   }, 200);
@@ -128,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
+  //News swiper
   const newsSwiper = new Swiper(".newsSwiper", {
     slidesPerView: 1,
     spaceBetween: 20,
@@ -146,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
+  //Reels Swiper
   const videoSwiper = new Swiper(".videoSwiper", {
     slidesPerView: 1,
     spaceBetween: 20,
