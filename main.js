@@ -163,3 +163,27 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+function displayNav(data) {
+  const shop = document.getElementById("Shop");
+  data["products"].forEach(item => {
+    const link = document.createElement("option");
+    link.value = item.title;
+    link.textContent = item.title;
+    shop.appendChild(link);
+  });
+}
+
+async function loadData() {
+  try {
+    const response = await fetch("jelwo-product.json");
+    console.log("Response status:", response.status);
+    const data = await response.json();
+    console.log("Data loaded:", data);
+    displayNav(data);
+  } catch (error) {
+    console.error("Error loading data:", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadData);
