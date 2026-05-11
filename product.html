@@ -72,7 +72,39 @@
             </div>
             <ul class="hidden lg:flex gap-8">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Shop</a></li>
+                <li>
+                  <div id="shopMenu" class="relative">
+                    <button id="shopBtn">
+                      Shop
+                    </button>
+                    <div id="shopDropdown" class="absolute left-0 top-full w-screen bg-gray-100 min-h-[300px] shadow-2xl z-50 px-24 py-12">
+                      <div class="grid grid-cols-5 gap-8">
+                        <div>
+                          <h3 class="font-semibold mb-4">Rings</h3>
+                          <ul data-type="rings" class="space-y-2"></ul>
+                        </div>
+
+                        <div>
+                          <h3 class="font-semibold mb-4">Necklaces</h3>
+                          <ul data-type="necklaces" class="space-y-2"></ul>
+                        </div>
+
+                        <div>
+                          <h3 class="font-semibold mb-4">Bracelets</h3>
+                          <ul data-type="bracelets" class="space-y-2"></ul>
+                        </div>
+
+                        <div>
+                          <h3 class="font-semibold mb-4">Earrings</h3>
+                          <ul data-type="earrings" class="space-y-2"></ul>
+                        </div>
+                        <div>
+                          <img src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-menu-banner.jpg?v=1742635152&width=500" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
                 <li><a href="#">Collection</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
@@ -414,7 +446,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="./product.js"></script>
+    <script src="./main.js"></script>
 
 </body>
 </html>

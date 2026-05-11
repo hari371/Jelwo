@@ -814,6 +814,10 @@ p,span {
   bottom: 0px;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .left-1\/2 {
   left: 50%;
 }
@@ -854,12 +858,16 @@ p,span {
   z-index: 30;
 }
 
-.order-last {
-  order: 9999;
+.z-50 {
+  z-index: 50;
 }
 
 .order-3 {
   order: 3;
+}
+
+.order-last {
+  order: 9999;
 }
 
 .col-span-2 {
@@ -908,16 +916,12 @@ p,span {
   margin-bottom: 1rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
 .mt-10 {
   margin-top: 2.5rem;
 }
 
-.inline {
-  display: inline;
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
 .flex {
@@ -996,6 +1000,10 @@ p,span {
   width: 9rem;
 }
 
+.w-40 {
+  width: 10rem;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -1028,32 +1036,12 @@ p,span {
   width: 100%;
 }
 
-.w-\[90\] {
-  width: 90;
+.w-screen {
+  width: 100vw;
 }
 
-.w-\[\] {
-  width: ;
-}
-
-.w-\[80\] {
-  width: 80;
-}
-
-.w-auto {
-  width: auto;
-}
-
-.w-40 {
-  width: 10rem;
-}
-
-.w-\[60\] {
-  width: 60;
-}
-
-.w-\[60\%\] {
-  width: 60%;
+.w-\[9\] {
+  width: 9;
 }
 
 .min-w-full {
@@ -1122,6 +1110,10 @@ p,span {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1178,6 +1170,12 @@ p,span {
   gap: 2rem;
 }
 
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
 .divide-x > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-x-reverse: 0;
   border-right-width: calc(1px * var(--tw-divide-x-reverse));
@@ -1196,10 +1194,6 @@ p,span {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.text-wrap {
-  text-wrap: wrap;
 }
 
 .rounded-full {
@@ -1275,6 +1269,11 @@ p,span {
 
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .bg-\[url\(\'https\:\/\/jelwo\.myshopify\.com\/cdn\/shop\/files\/jewelry-4-banner-1\.jpg\?v\=1742541671\&width\=832\'\)\] {
@@ -1402,6 +1401,11 @@ p,span {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .pl-16 {
@@ -1559,6 +1563,18 @@ p,span {
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -1748,14 +1764,6 @@ p,span {
     min-height: 500px;
   }
 
-  .lg\:w-2\/4 {
-    width: 50%;
-  }
-
-  .lg\:w-3\/4 {
-    width: 75%;
-  }
-
   .lg\:w-\[60\%\] {
     width: 60%;
   }
@@ -1792,12 +1800,12 @@ p,span {
     gap: 0px;
   }
 
-  .lg\:gap-4 {
-    gap: 1rem;
-  }
-
   .lg\:gap-10 {
     gap: 2.5rem;
+  }
+
+  .lg\:gap-4 {
+    gap: 1rem;
   }
 
   .lg\:pt-0 {

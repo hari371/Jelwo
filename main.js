@@ -164,26 +164,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-function displayNav(data) {
-  const shop = document.getElementById("Shop");
-  data["products"].forEach(item => {
-    const link = document.createElement("option");
-    link.value = item.title;
-    link.textContent = item.title;
-    shop.appendChild(link);
+const shopMenu = document.getElementById("shopMenu");
+const shopDropdown = document.getElementById("shopDropdown");
+console.log(shopMenu);
+console.log(shopDropdown);
+if (shopMenu && shopDropdown) {
+   shopMenu.addEventListener("mouseenter", () => {
+    const nav = document.querySelector("nav");
+    const navRect = nav.getBoundingClientRect();
+    shopDropdown.classList.remove("hidden");
+    shopDropdown.style.left = `-${shopMenu.offsetLeft}px`;
+    shopDropdown.style.width = `${navRect.width}px`;
   });
+  shopMenu.addEventListener("mouseleave", () => {
+    shopDropdown.classList.add("hidden");
+  });
+
 }
 
-async function loadData() {
-  try {
-    const response = await fetch("jelwo-product.json");
-    console.log("Response status:", response.status);
-    const data = await response.json();
-    console.log("Data loaded:", data);
+const categoryLists = document.querySelectorAll("[data-type]");
+categoryLists.forEach(list => {
+  const type = list.dataset.type;
+  const filteredProducts = products.filter(product =>
+    product.category === type
+  );
+  filteredProducts.forEach(product => {
+    list.innerHTML += `
+      <li>
+        <a href="#">
+          ${product.name}
+        </a>
+      </li>
+    `;   
+  });
+});
+
+fetch("./jelwo-product.json")
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
     displayNav(data);
-  } catch (error) {
-    console.error("Error loading data:", error);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", loadData);
+  })
+  .catch(error => {
+    console.log("ERROR:", error);
+  });
