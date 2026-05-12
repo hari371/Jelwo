@@ -164,32 +164,224 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-const shopMenu = document.getElementById("shopMenu"); // Ensure this is the PARENT container
+// =========================
+// SHOP DROPDOWN ELEMENTS
+// =========================
+
+const shopMenu = document.getElementById("shopMenu");
 const shopDropdown = document.getElementById("shopDropdown");
 
+
+// =========================
+// DROPDOWN POSITION
+// =========================
+
 if (shopMenu && shopDropdown) {
+
     shopMenu.addEventListener("mouseenter", () => {
+
         const nav = document.querySelector("nav");
-        const navRect = nav.getBoundingClientRect();    
+        const navRect = nav.getBoundingClientRect();
+
         shopDropdown.classList.remove("hidden");
+
         requestAnimationFrame(() => {
+
             shopDropdown.style.left = `-${shopMenu.offsetLeft}px`;
+
             shopDropdown.style.width = `${navRect.width}px`;
+
         });
+
     });
+
     shopMenu.addEventListener("mouseleave", () => {
+
         shopDropdown.classList.add("hidden");
+
     });
+
 }
 
-function selectProduct(){
-  
+
+
+// =========================
+// CREATE SIMPLE DROPDOWN
+// =========================
+
+function createDropdown(products) {
+
+    const dropdownContent =
+    document.getElementById("dropdownContent");
+
+    if (!dropdownContent) return;
+
+    // Clear old content
+    dropdownContent.innerHTML = "";
+
+
+
+    // =========================
+    // CREATE 4 PRODUCT COLUMNS
+    // =========================
+
+    const itemsPerColumn = 6;
+
+    for (let i = 0; i < 4; i++) {
+
+        // Create column
+        const column = document.createElement("div");
+
+
+
+        // Create list
+        const ul = document.createElement("ul");
+
+        ul.className =
+        "space-y-2 flex flex-col gap-4";
+
+
+
+        // Get products for this column
+        const start = i * itemsPerColumn;
+
+        const end = start + itemsPerColumn;
+
+        const columnProducts =
+        products.slice(start, end);
+
+
+
+        // Add products
+        columnProducts.forEach(product => {
+
+            const li = document.createElement("li");
+
+            li.className =
+            "text-lg font-medium hover:text-primary hover:underline transition-smooth cursor-pointer";
+
+            li.textContent = product.title;
+
+            ul.appendChild(li);
+
+        });
+
+
+
+        // Append
+        column.appendChild(ul);
+
+        dropdownContent.appendChild(column);
+
+    }
+
+
+
+    // =========================
+    // IMAGE COLUMN
+    // =========================
+
+    const imageColumn = document.createElement("div");
+
+    imageColumn.innerHTML = `
+        <img
+        class="w-full object-cover rounded-md"
+        src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-menu-banner.jpg?v=1742635152&width=500"
+        alt="banner">
+    `;
+
+    dropdownContent.appendChild(imageColumn);
+
 }
+
+
+// main image zoom and movements
+const imageContainer = document.getElementById("mainImageContainer");
+const productImage = document.getElementById("mainProductImage");
+if (imageContainer && productImage) {
+  imageContainer.addEventListener("mousemove", (e) => {
+    const rect = imageContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+    productImage.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+    productImage.style.transform = "scale(2)";
+  });
+  imageContainer.addEventListener("mouseleave", () => {
+    productImage.style.transformOrigin = "center center";
+    productImage.style.transform = "scale(1)";
+  });
+
+}
+
+// main img change
+const mainImage = document.getElementById("mainProductImage");
+const thumbnails = document.querySelectorAll(".thumbImage");
+thumbnails.forEach((thumb) => {
+  thumb.addEventListener("click", () => {
+    mainImage.src = thumb.src;
+  });
+});
+
+// Items-counter
+const decreaseBtn = document.getElementById("decreaseBtn");
+const increaseBtn = document.getElementById("increaseBtn");
+const quantityInput = document.getElementById("quantityInput");
+
+let quantity = 1;
+
+increaseBtn.addEventListener("click", () => {
+  quantity++;
+  quantityInput.value = quantity;
+});
+
+decreaseBtn.addEventListener("click", () => {
+  if (quantity > 1) {
+    quantity--;
+    quantityInput.value = quantity;
+  }
+});
+
+//wishlist btn
+const heartBtn = document.getElementById("heartBtn");
+const heartIcon = document.getElementById("heartIcon");
+
+let liked = false;
+
+heartBtn.addEventListener("click", () => {
+  liked = !liked;
+
+  if (liked) {
+    heartIcon.classList.remove("fa-regular");
+    heartIcon.classList.add("fa-solid", "text-red-500");
+  } else {
+    heartIcon.classList.remove("fa-solid", "text-red-500");
+    heartIcon.classList.add("fa-regular");
+  }
+});
+
+
+// =========================
+// FETCH PRODUCTS
+// =========================
 
 fetch("./jelwo-product.json")
-  .then(response => response.json())
-  .then(data => {
-  })
-  .catch(error => {
+
+.then(response => response.json())
+
+.then(data => {
+
+    const products = data.products;
+
+    console.log(products);
+
+    createDropdown(products);
+
+})
+
+.catch(error => {
+
     console.log("ERROR:", error);
-  });
+
+});

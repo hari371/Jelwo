@@ -78,57 +78,8 @@
                       Shop
                     </button>
                     <div id="shopDropdown" class="absolute left-0 top-full w-screen bg-gray-100 min-h-[300px] shadow-2xl z-50 px-24 py-12 hidden">
-                      <div class="grid grid-cols-5 gap-8 cursor-pointer ">
-                        <div>
-                          <h3 class="font-semibold mb-4">Rings</h3>
-                          <ul data-type="rings" class="space-y-2 list-inside flex flex-col gap-2">
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Blue heavy t-shirt</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Brown sunglasses</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Dark sunglasses</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Half sleev tshirt</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Formal shirt</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Gold nose pin</li>
-                          </ul>
-                        </div>
-
-                        <div>
-                          <h3 class="font-semibold mb-4">Necklaces</h3>
-                          <ul data-type="necklaces" class="space-y-2 list-inside flex flex-col gap-2">
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Rose gold rings</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Brown sunglasses</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Bucket shoes</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Color print sandal</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Floral gold bangle</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Simple Pearl earrings</li>
-                          </ul>
-                        </div>
-
-                        <div>
-                          <h3 class="font-semibold mb-4">Bracelets</h3>
-                          <ul data-type="bracelets" class="space-y-2 list-inside flex flex-col gap-2">
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Blue heavy t-shirt</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Brown sunglasses</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Formal shoes</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Formal shirt</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Blue heavy t-shirt</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Brown sunglasses</li>
-                          </ul>
-                        </div>
-
-                        <div>
-                          <h3 class="font-semibold mb-4">Earrings</h3>
-                          <ul data-type="earrings" class="space-y-2 list-inside flex flex-col gap-2">
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Blue heavy t-shirt</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Glitter diamond ring</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Brown sunglasses</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Bucket shoes</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Diamond rashmi ring</li>
-                            <li class="text-lg font-medium hover:text-primary hover:underline  transition-smooth">Floral gold bangle</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <img src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-menu-banner.jpg?v=1742635152&width=500" alt="">
-                        </div>
+                      <div  id="dropdownContent" class="grid grid-cols-5 gap-8 cursor-pointer ">
+                        
                       </div>
                     </div>
                   </div>
@@ -154,11 +105,155 @@
 
     <section class="my-12">
         <div class="my-12 w-[90%] mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <div>
-                    <div>
-                        <img src="https://cdn.shopify.com/s/files/1/0671/2567/4121/files/product-description.jpg?v=1746179918" alt="">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <div class="flex flex-col gap-8">
+                    <div id="mainImageContainer" class="border overflow-hidden cursor-crosshair">
+                        <img id="mainProductImage" class="w-full h-full object-cover transition duration-200"
+                          src="https://cdn.shopify.com/s/files/1/0671/2567/4121/files/jewelry-pro-56.jpg?v=1741670785"
+                          alt=""
+                        >
+                      </div>
+                    <div class="flex gap-4">
+                      <div class="border">
+                        <img class="thumbImage"
+                           src="https:\/\/cdn.shopify.com\/s\/files\/1\/0671\/2567\/4121\/files\/jewelry-pro-56.jpg?v=1741670785">
                     </div>
+                      <div class="border">
+                        <img class="thumbImage"
+                           src="https://cdn.shopify.com//s//files//1//0671//2567//4121//files//jewelry-pro-57.jpg?v=1741670785" alt="">
+                      </div>
+                      <div class="border">
+                        <img class="thumbImage"
+                           src="https://cdn.shopify.com//s//files//1//0671//2567//4121//files//jewelry-pro-58.jpg?v=1741670785" alt="">
+                      </div>
+                      <div class="border">
+                        <img  class="thumbImage"
+                           src="https://cdn.shopify.com//s//files//1//0671//2567//4121//files//jewelry-pro-59.jpg?v=1741670785" alt="">
+                      </div>
+                      <div class="border">
+                        <img  class="thumbImage"
+                          src="https://cdn.shopify.com//s//files//1//0671//2567//4121//files//jewelry-pro-60.jpg?v=1741670785" alt="">
+                      </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-6">
+                  <h2>Rose gold rings</h2>
+                  <span>
+                    <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
+                    <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
+                    <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
+                    <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
+                    <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
+                    1 review
+                  </span>
+                  <div>
+                    <div class="flex gap-2 items-baseline">
+                      <h3 class="text-primary text-4xl">Rs. 22.00</h3>
+                      <span class="text-xl line-through">Rs. 40.00</span>
+                      <span class="bg-green-500 text-white text-lg">Sale 45%</span>
+                    </div>
+                    <span>Tax included. Shipping calculated at checkout.</span>
+                  </div>
+                  <span>15 in stock</span>
+                  <div class="horizontal-line"></div>
+                  <span>Care for fiber: 30% more recycled polyester. We label garments manufactured using environmentally friendly technologies and raw materials with the Join Life label.</span>
+                  <div class="flex justify-between px-6 py-4 border border-red-500 bg-red-500/10">
+                    <h3 class="text-xl text-red-500 font-semibold">Hurry up! Sale ends in:</h3>
+                    <span class="text-xl text-red-500 font-semibold">1570 : 07 : 24 : 57</span>
+                  </div>
+                  <div class="flex flex-col gap-4">
+                    <h3>Size:<span class="pl-2">28</span></h3>
+                    <div class="flex gap-4">
+                      <div class="rounded-full px-4 py-2 border-2">
+                        <span>28</span>
+                      </div>
+                      <div class="rounded-full px-4 py-2 border-2">
+                        <span>29</span>
+                      </div>
+                      <div class="rounded-full px-4 py-2 border-2">
+                        <span>30</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-4">
+                    <h3>Color:<span class="pl-2">Gold</span></h3>
+                    <div class="flex gap-4">
+                      <div class="rounded-full bg-yellow-500 px-4 py-4 border-2">
+                      </div>
+                      <div class="rounded-full bg-amber-100  px-4 py-4 border-2">
+                      </div>
+                      <div class="rounded-full bg-stone-300  px-4 py-4 border-2">
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="inline-flex items-center border border-gray-300 rounded-lg overflow-hidden bg-white">
+                      <button id="decreaseBtn"
+                        class="px-4 py-2 text-xl font-bold bg-gray-200 hover:bg-gray-300 transition">
+                        -
+                      </button>
+                      <input 
+                        type="text"
+                        id="quantityInput"
+                        value="1"
+                        readonly
+                        class="w-16 text-center outline-none text-lg font-semibold"
+                      />
+                      <button id="increaseBtn"
+                        class="px-4 py-2 text-xl font-bold bg-gray-200 hover:bg-gray-300 transition">
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div class="flex px-6 gap-6">
+                    <div class="btn uppercase w-1/2 border-2 border-black font-semibold hover:bg-primary hover:text-white hover:border-transparent transition-smooth ">
+                      Add to cart
+                    </div>
+                    <div class="btn uppercase w-1/2 border-2 bg-black border-black text-white font-semibold hover:bg-primary  hover:border-transparent transition-smooth ">
+                      buy it now
+                    </div>
+                  </div>
+                  <div class="flex px-6 gap-4 text-gray-500 text-2xl">
+                    <div class="flex gap-0 items-baseline">
+                      <button id="heartBtn"
+                          class="w-14 h-14 rounded-full bg-white flex items-center  justify-center group-hover:text-black transition"
+                        >
+                          <i id="heartIcon" class="fa-regular fa-heart"></i>
+                      </button>
+                      <span class="text-lg font-semibold uppercase group-hover:text-black">Wishlist</span>
+                    </div>
+                    <div class="flex gap-0 items-baseline group">
+                      <button
+                        class="w-14 h-14 rounded-full bg-white flex items-center justify-center transition duration-300 group-hover:text-black"
+                      >
+                        <i class="fa-solid fa-file"></i>
+                      </button>
+                      <span class="text-lg font-semibold uppercase group-hover:text-black transition duration-300 cursor-pointer">
+                        Details
+                      </span>
+                    </div>
+                    <div class="flex gap-0 items-baseline group">
+                      <button
+                        class="w-14 h-14 rounded-full bg-white flex items-center justify-center transition duration-300 group-hover:text-black"
+                      >
+                        <i class="fa-regular fa-circle-question"></i>
+                      </button>
+                      <span class="text-lg font-semibold uppercase group-hover:text-black transition duration-300 cursor-pointer">
+                        Help
+                      </span>
+                    </div>
+                    <div class="flex gap-0 items-baseline group">
+                      <button
+                        class="w-14 h-14 rounded-full bg-white flex items-center justify-center transition duration-300 group-hover:text-black"
+                      >
+                        <i class="fa-solid fa-share-nodes"></i>
+                      </button>
+                      <span class="text-lg font-semibold uppercase group-hover:text-black transition duration-300 cursor-pointer">
+                        Share
+                      </span>
+                    </div>
+                  </div>
+                  <div class="horizontal-line"></div>
                 </div>
             </div>
         </div>
