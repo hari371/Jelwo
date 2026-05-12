@@ -164,46 +164,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-const shopMenu = document.getElementById("shopMenu");
+const shopMenu = document.getElementById("shopMenu"); // Ensure this is the PARENT container
 const shopDropdown = document.getElementById("shopDropdown");
-console.log(shopMenu);
-console.log(shopDropdown);
-if (shopMenu && shopDropdown) {
-   shopMenu.addEventListener("mouseenter", () => {
-    const nav = document.querySelector("nav");
-    const navRect = nav.getBoundingClientRect();
-    shopDropdown.classList.remove("hidden");
-    shopDropdown.style.left = `-${shopMenu.offsetLeft}px`;
-    shopDropdown.style.width = `${navRect.width}px`;
-  });
-  shopMenu.addEventListener("mouseleave", () => {
-    shopDropdown.classList.add("hidden");
-  });
 
+if (shopMenu && shopDropdown) {
+    shopMenu.addEventListener("mouseenter", () => {
+        const nav = document.querySelector("nav");
+        const navRect = nav.getBoundingClientRect();    
+        shopDropdown.classList.remove("hidden");
+        requestAnimationFrame(() => {
+            shopDropdown.style.left = `-${shopMenu.offsetLeft}px`;
+            shopDropdown.style.width = `${navRect.width}px`;
+        });
+    });
+    shopMenu.addEventListener("mouseleave", () => {
+        shopDropdown.classList.add("hidden");
+    });
 }
 
-const categoryLists = document.querySelectorAll("[data-type]");
-categoryLists.forEach(list => {
-  const type = list.dataset.type;
-  const filteredProducts = products.filter(product =>
-    product.category === type
-  );
-  filteredProducts.forEach(product => {
-    list.innerHTML += `
-      <li>
-        <a href="#">
-          ${product.name}
-        </a>
-      </li>
-    `;   
-  });
-});
+function selectProduct(){
+  
+}
 
 fetch("./jelwo-product.json")
   .then(response => response.json())
   .then(data => {
-    console.log(data);
-    displayNav(data);
   })
   .catch(error => {
     console.log("ERROR:", error);
