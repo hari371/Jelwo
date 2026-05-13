@@ -12,14 +12,14 @@
     <title >Jelwo</title>
 </head>
 
-<body>
+<body data-page="product">
     <nav class="w-full">
         <div class="w-[90%] mx-auto py-3 flex items-center justify-between border-b border-gray-100">
             <div class="flex gap-8 py-4">
-                <div>
-                    <img alt="logo" class="w-28 h-auto object-cover"
+                <a href="./index.html">
+                      <img alt="logo" class="w-28 h-auto object-cover"
                         src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-logo.png?v=1744805986&width=352"/>
-                </div>
+                    </a>
                 <div class="border-l-2 border-gray-200"></div>
             </div>
 
@@ -41,7 +41,7 @@
             <div class="flex items-center gap-6 pl-8">
                 <i class="fa-solid fa-magnifying-glass flex xl:hidden text-gray-700 hover:text-primary transition-smooth"></i>
                 <i class="fa-solid fa-user-plus text-gray-700 hover:text-primary transition-smooth"></i>
-                <div class="flex gap-1 items-center group cursor-pointer">              
+                <div data-open-wishlist class="flex gap-1 items-center group cursor-pointer">              
                     <svg 
                     class="w-5 h-5 fill-current text-gray-700 group-hover:text-primary transition-smooth"
                     viewBox="0 0 16 16"
@@ -51,11 +51,11 @@
                         <rect x="11" y="11" width="4.958" height="0.918"/>
                         <rect x="13" y="9" width="0.918" height="4.957"/>                 
                     </svg>
-                    <span class="group-hover:text-primary transition-smooth">(0)</span>
+                    <span data-wishlist-count class="group-hover:text-primary transition-smooth">(0)</span>
                 </div>
-                <div class="flex gap-1 items-center group cursor-pointer">
+                <div data-open-cart class="flex gap-1 items-center group cursor-pointer">
                     <i class="fa-solid fa-bag-shopping text-gray-700 group-hover:text-primary transition-smooth"></i>
-                    <span class="group-hover:text-primary transition-smooth">(0)</span>
+                    <span data-cart-count class="group-hover:text-primary transition-smooth">(0)</span>
                 </div>
             </div>
         </div>
@@ -77,8 +77,8 @@
                     <button id="shopBtn">
                       Shop
                     </button>
-                    <div id="shopDropdown" class="absolute left-0 top-full w-screen bg-gray-100 min-h-[300px] shadow-2xl z-50 px-24 py-12 hidden">
-                      <div  id="dropdownContent" class="grid grid-cols-5 gap-8 cursor-pointer ">
+                    <div id="shopDropdown" class="absolute left-0 top-[calc(100%+18px)] w-screen min-h-[320px] rounded-[28px] border border-gray-200 bg-white shadow-[0_28px_80px_rgba(17,24,39,0.14)] z-50 px-10 py-10 hidden">
+                      <div id="dropdownContent" class="grid grid-cols-5 gap-8 items-start">
                         
                       </div>
                     </div>
@@ -99,7 +99,7 @@
 
     <section>
       <div class="my-12 w-[90%] mx-auto">
-          <span>Home / ProductName</span>
+          <span>Home / <span id="breadcrumbProductName">Product</span></span>
       </div>
     </section>
 
@@ -113,76 +113,51 @@
                           alt=""
                         >
                       </div>
-                    <div class="flex gap-4">
+                    <div id="thumbnailContainer" class="flex gap-4">
                       <div class="border">
                         <img class="thumbImage"
-                           src="https:\/\/cdn.shopify.com\/s\/files\/1\/0671\/2567\/4121\/files\/jewelry-pro-56.jpg?v=1741670785">
-                    </div>
-                      <div class="border">
-                        <img class="thumbImage"
-                           src="https://cdn.shopify.com//s//files//1//0671//2567//4121//files//jewelry-pro-57.jpg?v=1741670785" alt="">
-                      </div>
-                      <div class="border">
-                        <img class="thumbImage"
-                           src="https://cdn.shopify.com//s//files//1//0671//2567//4121//files//jewelry-pro-58.jpg?v=1741670785" alt="">
-                      </div>
-                      <div class="border">
-                        <img  class="thumbImage"
-                           src="https://cdn.shopify.com//s//files//1//0671//2567//4121//files//jewelry-pro-59.jpg?v=1741670785" alt="">
-                      </div>
-                      <div class="border">
-                        <img  class="thumbImage"
-                          src="https://cdn.shopify.com//s//files//1//0671//2567//4121//files//jewelry-pro-60.jpg?v=1741670785" alt="">
+                           src="https://cdn.shopify.com/s/files/1/0671/2567/4121/files/jewelry-pro-56.jpg?v=1741670785"
+                           alt="">
                       </div>
                     </div>
                 </div>
                 <div class="flex flex-col gap-6">
-                  <h2>Rose gold rings</h2>
+                  <h2 id="productTitle">Rose gold rings</h2>
                   <span>
                     <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
                     <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
                     <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
                     <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
                     <i class="fa-solid fa-star" style="color: rgb(255, 212, 59);"></i>
-                    1 review
+                    <span id="productReviewText">1 review</span>
                   </span>
                   <div>
                     <div class="flex gap-2 items-baseline">
-                      <h3 class="text-primary text-4xl">Rs. 22.00</h3>
-                      <span class="text-xl line-through">Rs. 40.00</span>
-                      <span class="bg-green-500 text-white text-lg">Sale 45%</span>
+                      <h3 id="productPrice" class="text-primary text-4xl">Rs. 22.00</h3>
+                      <span id="productComparePrice" class="text-xl line-through">Rs. 40.00</span>
+                      <span id="productSaleBadge" class="bg-green-500 text-white text-lg">Sale 45%</span>
                     </div>
                     <span>Tax included. Shipping calculated at checkout.</span>
                   </div>
-                  <span>15 in stock</span>
+                  <span id="productStock">15 in stock</span>
                   <div class="horizontal-line"></div>
-                  <span>Care for fiber: 30% more recycled polyester. We label garments manufactured using environmentally friendly technologies and raw materials with the Join Life label.</span>
+                  <span id="productSummary">Care for fiber: 30% more recycled polyester. We label garments manufactured using environmentally friendly technologies and raw materials with the Join Life label.</span>
                   <div class="flex justify-between px-6 py-4 border border-red-500 bg-red-500/10">
                     <h3 class="text-xl text-red-500 font-semibold">Hurry up! Sale ends in:</h3>
-                    <span class="text-xl text-red-500 font-semibold">1570 : 07 : 24 : 57</span>
+                    <span id="saleCountdown" class="text-xl text-red-500 font-semibold">1570 : 07 : 24 : 57</span>
                   </div>
-                  <div class="flex flex-col gap-4">
-                    <h3>Size:<span class="pl-2">28</span></h3>
-                    <div class="flex gap-4">
+                  <div id="sizeSection" class="flex flex-col gap-4">
+                    <h3>Size:<span id="selectedSizeLabel" class="pl-2">28</span></h3>
+                    <div id="sizeOptions" class="flex gap-4">
                       <div class="rounded-full px-4 py-2 border-2">
                         <span>28</span>
                       </div>
-                      <div class="rounded-full px-4 py-2 border-2">
-                        <span>29</span>
-                      </div>
-                      <div class="rounded-full px-4 py-2 border-2">
-                        <span>30</span>
-                      </div>
                     </div>
                   </div>
-                  <div class="flex flex-col gap-4">
-                    <h3>Color:<span class="pl-2">Gold</span></h3>
-                    <div class="flex gap-4">
+                  <div id="colorSection" class="flex flex-col gap-4">
+                    <h3>Color:<span id="selectedColorLabel" class="pl-2">Gold</span></h3>
+                    <div id="colorOptions" class="flex gap-4">
                       <div class="rounded-full bg-yellow-500 px-4 py-4 border-2">
-                      </div>
-                      <div class="rounded-full bg-amber-100  px-4 py-4 border-2">
-                      </div>
-                      <div class="rounded-full bg-stone-300  px-4 py-4 border-2">
                       </div>
                     </div>
                   </div>
@@ -206,12 +181,12 @@
                     </div>
                   </div>
                   <div class="flex px-6 gap-6">
-                    <div class="btn uppercase w-1/2 border-2 border-black font-semibold hover:bg-primary hover:text-white hover:border-transparent transition-smooth ">
+                    <button id="addToCartBtn" class="btn uppercase w-1/2 border-2 border-black font-semibold hover:bg-primary hover:text-white hover:border-transparent transition-smooth ">
                       Add to cart
-                    </div>
-                    <div class="btn uppercase w-1/2 border-2 bg-black border-black text-white font-semibold hover:bg-primary  hover:border-transparent transition-smooth ">
+                    </button>
+                    <button id="buyNowBtn" class="btn uppercase w-1/2 border-2 bg-black border-black text-white font-semibold hover:bg-primary  hover:border-transparent transition-smooth ">
                       buy it now
-                    </div>
+                    </button>
                   </div>
                   <div class="flex px-6 gap-4 text-gray-500 text-2xl">
                     <div class="flex gap-0 items-baseline">
@@ -220,7 +195,7 @@
                         >
                           <i id="heartIcon" class="fa-regular fa-heart"></i>
                       </button>
-                      <span class="text-lg font-semibold uppercase group-hover:text-black">Wishlist</span>
+                      <span id="wishlistLabel" class="text-lg font-semibold uppercase group-hover:text-black">Wishlist</span>
                     </div>
                     <div class="flex gap-0 items-baseline group">
                       <button
@@ -290,7 +265,7 @@
             <span class="hidden group-open:block text-2xl leading-none transition-smooth">&minus;</span>
           </summary>
           <div class="transition-all duration-500 ease-in-out h-0 group-open:h-auto opacity-0 group-open:opacity-100 px-4 pt-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-4 mx-auto">
+            <div id="productDescriptionContent" class="product-description-shell">
               <div class="">
                 <img class="rounded-full mx-auto"
                   src="https://cdn.shopify.com/s/files/1/0671/2567/4121/files/product-description.jpg?v=1746179918" alt="">
@@ -298,29 +273,6 @@
               <div class="flex flex-col gap-4">
                 <h3 class="font-medium">Product Specifications</h3>
                 <p>Care for fiber: 30% more recycled polyester. We label garments manufactured using environmentally friendly technologies and raw materials with the Join Life label.</p>
-                <h3 class="font-medium">Washing Instructions</h3>
-                <div class="flex gap-4">
-                  <img class="p-1" 
-                    src="https://cdn.shopify.com/s/files/1/0728/4994/8973/files/product-description-icon1.png?v=1686119033%5C" alt="">
-                  <span>Iron maximum 100ºC.</span>
-                </div>
-                <div class="flex gap-4">
-                  <img class="p-1" 
-                    src="https://cdn.shopify.com/s/files/1/0728/4994/8973/files/product-description-icon2.png?v=1686119033%5C" alt="">
-                  <span>Do not bleach/bleach.</span>
-                </div>
-                <div class="flex gap-4">
-                  <img class="p-1" 
-                    src="https://cdn.shopify.com/s/files/1/0728/4994/8973/files/product-description-icon3.png?v=1686119033%5C" alt="">
-                  <span>Do not dry clean.</span>
-                </div>
-              </div>
-              <div class="flex flex-col gap-4">
-                <h3 class="font-medium">Material</h3>
-                <p>The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production. To this end, we have developed Inditex's The List program.</p>
-                <h3 class="font-medium">Wearing</h3>
-                <span>Model is 1.84 m wearing</span>
-                <span>Size M</span>
               </div>
             </div>
           </div>
@@ -339,31 +291,83 @@
                 <tbody>
                   <tr class="bg-gray-50">
                     <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900 w-1/3">Vendor</th>
-                    <td class="py-4 px-4 border border-gray-300 text-gray-500">Jelwo</td>
+                    <td id="productVendor" class="py-4 px-4 border border-gray-300 text-gray-500">Jelwo</td>
                   </tr>
                   <tr class="bg-gray-100">
                     <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Type</th>
-                    <td class="py-4 px-4 border border-gray-300 text-gray-500">Jewelry</td>
+                    <td id="productType" class="py-4 px-4 border border-gray-300 text-gray-500">Jewelry</td>
                   </tr>
                   <tr class="bg-gray-50">
                     <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Size</th>
-                    <td class="py-4 px-4 border border-gray-300 text-gray-500">28, 29, 30</td>
+                    <td id="productSizes" class="py-4 px-4 border border-gray-300 text-gray-500">28, 29, 30</td>
                   </tr>
                   <tr class="bg-gray-100">
                     <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Color</th>
-                    <td class="py-4 px-4 border border-gray-300 text-gray-500">Gold, Beige, Silver</td>
+                    <td id="productColors" class="py-4 px-4 border border-gray-300 text-gray-500">Gold, Beige, Silver</td>
                   </tr>
                   <tr class="bg-gray-50">
                     <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Sku</th>
-                    <td class="py-4 px-4 border border-gray-300 text-gray-500">445</td>
+                    <td id="productSku" class="py-4 px-4 border border-gray-300 text-gray-500">445</td>
                   </tr>
                   <tr class="bg-gray-100">
                     <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Barcode</th>
-                    <td class="py-4 px-4 border border-gray-300 text-gray-500">123456789</td>
+                    <td id="productBarcode" class="py-4 px-4 border border-gray-300 text-gray-500">N/A</td>
                   </tr>
                   <tr class="bg-gray-50">
                     <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Weight</th>
-                    <td class="py-4 px-4 border border-gray-300 text-gray-500">90.718 kg</td>
+                    <td id="productWeight" class="py-4 px-4 border border-gray-300 text-gray-500">90.718 kg</td>
+                  </tr>
+                  <tr class="bg-gray-100">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Handle</th>
+                    <td id="productHandle" class="py-4 px-4 border border-gray-300 text-gray-500">flower-jhumka</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Tags</th>
+                    <td id="productTags" class="py-4 px-4 border border-gray-300 text-gray-500">earrings, flower, gold</td>
+                  </tr>
+                  <tr class="bg-gray-100">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Variants</th>
+                    <td id="productVariantCount" class="py-4 px-4 border border-gray-300 text-gray-500">3 variants</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Shipping</th>
+                    <td id="productShipping" class="py-4 px-4 border border-gray-300 text-gray-500">Required</td>
+                  </tr>
+                  <tr class="bg-gray-100">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Tax</th>
+                    <td id="productTaxStatus" class="py-4 px-4 border border-gray-300 text-gray-500">Applicable</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Published</th>
+                    <td id="productPublishedAt" class="py-4 px-4 border border-gray-300 text-gray-500">Jun 19, 2025</td>
+                  </tr>
+                  <tr class="bg-gray-100">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Last updated</th>
+                    <td id="productUpdatedAt" class="py-4 px-4 border border-gray-300 text-gray-500">Apr 21, 2026</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Created</th>
+                    <td id="productCreatedAt" class="py-4 px-4 border border-gray-300 text-gray-500">Dec 29, 2024</td>
+                  </tr>
+                  <tr class="bg-gray-100">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Product ID</th>
+                    <td id="productIdValue" class="py-4 px-4 border border-gray-300 text-gray-500">7954700697737</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Variant ID</th>
+                    <td id="productVariantId" class="py-4 px-4 border border-gray-300 text-gray-500">43242071163017</td>
+                  </tr>
+                  <tr class="bg-gray-100">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Variant title</th>
+                    <td id="productVariantTitle" class="py-4 px-4 border border-gray-300 text-gray-500">Gold</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Images</th>
+                    <td id="productImageCount" class="py-4 px-4 border border-gray-300 text-gray-500">5 images</td>
+                  </tr>
+                  <tr class="bg-gray-100">
+                    <th class="py-4 px-4 border border-gray-300 font-medium text-gray-900">Options</th>
+                    <td id="productOptionNames" class="py-4 px-4 border border-gray-300 text-gray-500">Color</td>
                   </tr>
                 </tbody>
               </table>

@@ -17,8 +17,10 @@
         <div class="w-[90%] mx-auto py-3 flex items-center justify-between border-b border-gray-100">
             <div class="flex gap-8 py-4">
                 <div>
-                    <img alt="logo" class="w-28 h-auto object-cover"
+                    <a href="./index.html">
+                      <img alt="logo" class="w-28 h-auto object-cover"
                         src="https://jelwo.myshopify.com/cdn/shop/files/jewelry-4-logo.png?v=1744805986&width=352"/>
+                    </a>
                 </div>
                 <div class="border-l-2 border-gray-200"></div>
             </div>
@@ -41,7 +43,7 @@
             <div class="flex items-center gap-6 pl-8">
                 <i class="fa-solid fa-magnifying-glass flex xl:hidden text-gray-700 hover:text-primary transition-smooth"></i>
                 <i class="fa-solid fa-user-plus text-gray-700 hover:text-primary transition-smooth"></i>
-                <div class="flex gap-1 items-center group cursor-pointer">              
+                <div data-open-wishlist class="flex gap-1 items-center group cursor-pointer">              
                     <svg 
                     class="w-5 h-5 fill-current text-gray-700 group-hover:text-primary transition-smooth"
                     viewBox="0 0 16 16"
@@ -51,11 +53,11 @@
                         <rect x="11" y="11" width="4.958" height="0.918"/>
                         <rect x="13" y="9" width="0.918" height="4.957"/>                 
                     </svg>
-                    <span class="group-hover:text-primary transition-smooth">(0)</span>
+                    <span data-wishlist-count class="group-hover:text-primary transition-smooth">(0)</span>
                 </div>
-                <div class="flex gap-1 items-center group cursor-pointer">
+                <div data-open-cart class="flex gap-1 items-center group cursor-pointer">
                     <i class="fa-solid fa-bag-shopping text-gray-700 group-hover:text-primary transition-smooth"></i>
-                    <span class="group-hover:text-primary transition-smooth">(0)</span>
+                    <span data-cart-count class="group-hover:text-primary transition-smooth">(0)</span>
                 </div>
             </div>
         </div>
@@ -77,8 +79,8 @@
                     <button id="shopBtn">
                       Shop
                     </button>
-                    <div id="shopDropdown" class="absolute left-0 top-full w-screen bg-gray-100 min-h-[300px] shadow-2xl z-50 px-24 py-12 hidden">
-                      <div  id="dropdownContent" class="grid grid-cols-5 gap-8 cursor-pointer ">
+                    <div id="shopDropdown" class="absolute left-0 top-[calc(100%+18px)] w-screen min-h-[320px] rounded-[28px] border border-gray-200 bg-white shadow-[0_28px_80px_rgba(17,24,39,0.14)] z-50 px-10 py-10 hidden">
+                      <div id="dropdownContent" class="grid grid-cols-5 gap-8 items-start">
                         
                       </div>
                     </div>
