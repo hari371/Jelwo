@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="./dist/output.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="icon" type="img/png" href="https://jelwo.myshopify.com/cdn/shop/files/favicon.png?crop=center&height=32&v=1745237450&width=32">
+    <title>Jelwo</title>
+</head>
+
+<body>
+    <section class="flex w-[70%] mx-auto items-start my-8">
+        <a href="./index.html">
+            <h3 class="font-semibold">Jelwo ( password: 1 )</h3>
+        </a>
+    </section>
+    <div class="horizontal-line"></div>
+    <section class="grid grid-cols-1 lg:grid-cols-2 divide-x w-[80%] mx-auto pt-8 mb-20">
+        <div class="flex flex-col  bg-white order-last lg:order-first px-10 gap-10">
+            <div class="flex flex-col gap-4">
+                <div class="flex justify-between">
+                    <h3 class="font-semibold">Contact</h3>
+                    <a href="./buyItNow.html" class="text-blue-500 underline">SignIn</a>
+                </div>
+                <input type="text" placeholder="Email or mobile number" class="border py-4 px-4 rounded-lg">
+                <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-5 h-5 accent-black">
+                    <span class="text-lg text-black">Email me with news and offers</span>
+                </label>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h3 class="font-semibold">Delivery</h3>
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-between bg-gray-200 p-1 rounded-lg w-full">
+                        <button id="deliveryBtn1" class="w-[50%] py-2 rounded-lg bg-white text-black transition">
+                            Monthly
+                        </button>
+                        <button id="deliveryBtn2" class="w-[50%] py-2 rounded-lg bg-transparent text-black transition">
+                            Yearly
+                        </button>
+                    </div>
+                    <!-- Monthly Content -->
+                    <div id="monthlyDiv" class="flex flex-col gap-8 rounded-lg">
+                        <div class="flex flex-col border border-gray-200 py-4 px-4 rounded-lg">
+                            <label for="country-select" class="text-sm text-gray-500">Country/Region</label>
+                            <select id="country-select" name="country">
+                                <option class="text-lg" value="us">America</option>
+                                <option class="text-lg" value="cn">China</option>
+                                <option class="text-lg" value="ru">Russia</option>
+                                <option class="text-lg" value="in">India</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="border border-gray-200 py-4 px-4 rounded-lg">                           
+                                <input type="text" placeholder="First Name">
+                            </div>
+                            <div class="border border-gray-200 py-4 px-4 rounded-lg">
+                                <input type="text" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="flex justify-between border border-gray-200 py-4 px-4 rounded-lg">
+                            <input type="text" placeholder="Address">
+                            <i class="fa-solid fa-magnifying-glass text-gray-500"></i>
+                        </div>
+                        <div class="border border-gray-200 py-4 px-4 rounded-lg">
+                            <input type="text" placeholder="Appartment, suite, etc. (optional)">
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="border border-gray-200 py-4 px-4 rounded-lg">
+                                <input type="text" placeholder="City">
+                            </div>
+                            <div class="flex flex-col border border-gray-200 py-1 px-4 rounded-lg">
+                                <label for="country-select" class="text-sm text-gray-500">State</label>
+                                <select id="country-select" name="country">
+                                    <option value="">Select State</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                    <option value="Ladakh">Ladakh</option>
+                                    <option value="Lakshadweep">Lakshadweep</option>
+                                    <option value="Puducherry">Puducherry</option>
+                                </select>
+                            </div>
+                            <div class="border border-gray-200 py-4 px-4 rounded-lg">
+                                <input type="text" placeholder="PIN Code">
+                            </div>
+                        </div>    
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 accent-black">
+                            <span class="text-lg text-black">Save this information for next time</span>
+                        </label> 
+                        <div class="flex flex-col gap-2">
+                            <h3 class="font-semibold">Shipping method</h3>     
+                            <div class="bg-gray-200 px-6 py-4 rounded-lg">
+                                <p class="">Enter your shipping address to view available shipping methods.</p>
+                            </div>            
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <h3 class="font-semibold">Payment</h3> 
+                            <p>All transactions are secure and encrypted.</p>
+                        </div>
+                        <div class="flex flex-col gap-4 bg-gray-200 rounded-lg border border-gray-400 pb-6">
+                            <div class="flex justify-between px-6 py-4 border border-blue-500 bg-blue-600/10">
+                                <div>
+                                <h3>Credit card</h3>
+                                </div>
+                                <div>
+                                    <img src="https://jelwo.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/bogus.CIsYlO1z.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="flex px-6">
+                                <div class="relative w-full">
+                                    <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Enter your Card Number"
+                                        class="w-full border border-gray-300 pl-12 py-3 rounded-lg 
+                                            focus:border-blue-500 focus:outline-none transition"
+                                    >
+                                </div>
+                            </div>
+                            <div class="flex gap-4 px-6">
+                                <input 
+                                    type="text" 
+                                    placeholder="Expiration date (MM/YY)"
+                                    class="w-full border border-gray-300 pl-6 py-3 rounded-lg 
+                                        focus:border-blue-500 focus:outline-none transition"
+                                >
+                                <div class="relative w-full"> 
+                                    <div class="absolute border-2 border-gray-300 rounded-full px-2 right-6 bottom-1/4">
+                                        <i class="fa-solid fa-question  text-gray-500"></i>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        placeholder="CVV"
+                                        class="w-full border border-gray-300 pl-6 py-3 rounded-lg 
+                                            focus:border-blue-500 focus:outline-none transition"
+                                    >
+                                </div>
+                            </div>
+                            <div class="px-6">
+                                <input 
+                                        type="text" 
+                                        placeholder="Enter the Name on Card"
+                                        class="w-full border border-gray-300 pl-12 py-3 rounded-lg 
+                                            focus:border-blue-500 focus:outline-none transition"
+                                    >
+                            </div>
+                            <label class="flex items-center gap-3 cursor-pointer px-6">
+                                <input type="checkbox" id="billingCheck" class="w-5 h-5 accent-black" unchecked>
+                                <span class="text-lg text-black">
+                                    Use shipping address as billing address
+                                </span>
+                            </label>
+                            <div id="billingForm" class="hidden px-6 mt-4">                               
+                                <div class="flex flex-col border border-gray-200 rounded-lg">
+                                    <label for="country-select" class="text-sm text-gray-500">Country/Region</label>
+                                    <select id="country-select" name="country" class="py-3 px-6 rounded-lg">
+                                        <option class="text-lg" value="us">America</option>
+                                        <option class="text-lg" value="cn">China</option>
+                                        <option class="text-lg" value="ru">Russia</option>
+                                        <option class="text-lg" value="in">India</option>
+                                    </select>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="border border-gray-200 py-4 px-4 rounded-lg">                           
+                                        <input type="text" placeholder="First Name" class="py-3 px-6 rounded-lg">
+                                    </div>
+                                    <div class="border border-gray-200 py-4 px-4 rounded-lg">
+                                        <input type="text" placeholder="Last Name" class="py-3 px-6 rounded-lg">
+                                    </div>
+                                </div>
+                                <div class="flex justify-between border border-gray-200 py-4 px-4 rounded-lg relative">
+                                    <input type="text" placeholder="Address" class="py-3 px-6 rounded-lg w-full">
+                                    <i class="fa-solid fa-magnifying-glass text-gray-500 absolute right-14 bottom-1/2 -mb-2"></i>
+                                </div>
+                                <div class="border border-gray-200 py-4 px-4 rounded-lg">
+                                    <input type="text" placeholder="Appartment, suite, etc. (optional)" class="py-3 px-6 rounded-lg w-full">
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 items-baseline">
+                                    <div class="border border-gray-200 py-4 px-4 rounded-lg">
+                                        <input type="text" placeholder="City" class="py-3 px-6 rounded-lg w-full">
+                                    </div>
+                                    <div class="flex flex-col border border-gray-200 py-4 px-4 rounded-lg">
+                                        <select id="country-select" name="country" class="py-3 px-6 rounded-lg w-full">
+                                            <option value="">Select State</option>
+                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                            <option value="Assam">Assam</option>
+                                            <option value="Bihar">Bihar</option>
+                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                            <option value="Goa">Goa</option>
+                                            <option value="Gujarat">Gujarat</option>
+                                            <option value="Haryana">Haryana</option>
+                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                            <option value="Jharkhand">Jharkhand</option>
+                                            <option value="Karnataka">Karnataka</option>
+                                            <option value="Kerala">Kerala</option>
+                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                            <option value="Maharashtra">Maharashtra</option>
+                                            <option value="Manipur">Manipur</option>
+                                            <option value="Meghalaya">Meghalaya</option>
+                                            <option value="Mizoram">Mizoram</option>
+                                            <option value="Nagaland">Nagaland</option>
+                                            <option value="Odisha">Odisha</option>
+                                            <option value="Punjab">Punjab</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                            <option value="Sikkim">Sikkim</option>
+                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                            <option value="Telangana">Telangana</option>
+                                            <option value="Tripura">Tripura</option>
+                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                            <option value="Uttarakhand">Uttarakhand</option>
+                                            <option value="West Bengal">West Bengal</option>
+                                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                            <option value="Chandigarh">Chandigarh</option>
+                                            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                            <option value="Ladakh">Ladakh</option>
+                                            <option value="Lakshadweep">Lakshadweep</option>
+                                            <option value="Puducherry">Puducherry</option>
+                                        </select>
+                                    </div>
+                                    <div class="border border-gray-200 py-4 px-4 rounded-lg">
+                                        <input type="text" placeholder="PIN Code" class="py-3 px-6 rounded-lg w-full">
+                                    </div>
+                                </div>   
+                            </div>                            
+                        </div>
+                        <div >
+                            <button class="btn w-full bg-blue-500 text-white hover:bg-blue-600 transition-smooth rounded-lg py-3">
+                                Pay Now
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Yearly Content -->
+                    <div id="yearlyDiv" class="hidden flex-col gap-4  p-4 bg-gray-100 rounded-lg">
+                        Yearly Plan Content
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-200 order-first lg:order-last"></div>
+    </section>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>

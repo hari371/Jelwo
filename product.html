@@ -180,13 +180,19 @@
                       </button>
                     </div>
                   </div>
-                  <div class="flex px-6 gap-6">
-                    <button id="addToCartBtn" class="btn uppercase w-1/2 border-2 border-black font-semibold hover:bg-primary hover:text-white hover:border-transparent transition-smooth ">
-                      Add to cart
-                    </button>
-                    <button id="buyNowBtn" class="btn uppercase w-1/2 border-2 bg-black border-black text-white font-semibold hover:bg-primary  hover:border-transparent transition-smooth ">
-                      buy it now
-                    </button>
+                  <div class="flex px-6 gap-6 w-full">
+                    <div class="w-[50%]">
+                      <button id="addToCartBtn" class="btn uppercase border-2 w-full border-black font-semibold hover:bg-primary hover:text-white hover:border-transparent transition-smooth ">
+                        Add to cart
+                      </button>
+                    </div>
+                    <div class="w-[50%]">
+                      <a href="./buyItNow.html" class="">
+                        <button class="btn uppercase w-full border-2 bg-black border-black text-white font-semibold hover:bg-primary  hover:border-transparent transition-smooth ">
+                          buy it now
+                        </button>
+                      </a>
+                    </div>
                   </div>
                   <div class="flex px-6 gap-4 text-gray-500 text-2xl">
                     <div class="flex gap-0 items-baseline">
@@ -229,6 +235,58 @@
                     </div>
                   </div>
                   <div class="horizontal-line"></div>
+                  <div class="grid grid-cols-[max-content_1fr] items-start gap-4">                   
+                      <h3 class="font-medium">Delivery:</h3>
+                      <span>Estimated delivery time: 5-7 days</span> 
+                      <h3 class="font-medium">Returns:</h3>
+                      <span>Within 45 days of purchase</span>                 
+                      <h3 class="font-medium">Sku:</h3>
+                      <span>445</span>          
+                  </div>   
+                  <div class="flex flex-col gap-2 bg-primary/20 rounded-lg px-8 py-6 h-52">
+                    <h3 class="font-semibold">Payment & Security</h3>
+                    <div class="flex items-center gap-4 flex-wrap">
+                      <div >
+                          <i class="fa-brands fa-cc-visa text-4xl text-blue-700"></i>
+                      </div>
+                      <div >
+                          <i class="fa-brands fa-cc-mastercard text-4xl text-red-500"></i>
+                      </div>
+                      <div >
+                          <i class="fa-brands fa-cc-amex text-4xl text-blue-500"></i>
+                      </div>
+                      <div >
+                          <i class="fa-brands fa-cc-paypal text-4xl text-blue-800"></i>
+                      </div>
+                      <div >
+                          <i class="fa-brands fa-cc-discover text-4xl text-orange-500"></i>
+                      </div>
+                      <div>
+                          <i class="fa-brands fa-cc-stripe text-4xl text-indigo-600"></i>
+                      </div>
+                    </div>
+                    <p>Your payment information is processed securely. We do not store credit card details nor have access to your credit card information.</p>
+                  </div>   
+                  <div class="grid grid-cols-3 items-center text-center border border-gray-200 py-4">
+                    <div class="group items-center">
+                      <div class="text-2xl group-hover:text-[#A77F66] transition-smooth duration-700 flip-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </div>
+                      <h3 class="text-black font-medium text-lg pt-2">Order tracking</h3>
+                    </div>   
+                    <div class="group items-center">
+                      <div class="text-2xl group-hover:text-[#A77F66] transition-smooth duration-700 flip-icon">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                      </div>
+                      <h3 class="text-black font-medium text-lg pt-2">90 days return</h3>
+                    </div> 
+                    <div class="group items-center">
+                      <div class="text-2xl group-hover:text-[#A77F66] transition-smooth duration-700 flip-icon">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                      </div>
+                      <h3 class="text-black font-medium text-lg pt-2">Money guarantee</h3>
+                    </div>                 
+                  </div>
                 </div>
             </div>
         </div>
