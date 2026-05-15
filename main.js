@@ -146,22 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
       1280: { slidesPerView: 5 }
     }
   });
-  createSwiperIfPresent(".newJewelrysSwiper", {
-    slidesPerView: 1,
-    spaceBetween: 20,
-    loop: true,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true
-    },
-    breakpoints: {
-      0: { slidesPerView: 1 },
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
-      1280: { slidesPerView: 4 }
-    }
-  });
 });
 
 // SHOP DROPDOWN ELEMENTS
@@ -267,6 +251,8 @@ const STORAGE_KEYS = {
   wishlist: "jelwo-wishlist"
 };
 
+let jelwoCatalogByHandle = {};
+
 function readStoredItems(key) {
   try {
     const rawValue = window.localStorage.getItem(key);
@@ -304,6 +290,7 @@ function setWishlistItems(items) {
   writeStoredItems(STORAGE_KEYS.wishlist, items);
   updateHeaderCounts();
   renderStorageDrawer();
+  syncJewelryCarouselWishlistUi();
 }
 
 function getCartCount() {
@@ -337,6 +324,205 @@ function getSelectedOptionMap(product, selectedOptions) {
     }
   });
   return optionMap;
+}
+
+function getDefaultSelectedOptions(product, variant) {
+  const selectedOptions = {};
+  const baseVariant = variant || product?.variants?.[0] || null;
+  (product?.options || []).forEach((option) => {
+    const position = option.position;
+    selectedOptions[position] =
+      baseVariant?.[`option${position}`] || option.values?.[0] || "";
+  });
+  return selectedOptions;
+}
+
+function getSelectedOptionsFromVariant(product, variant) {
+  const selectedOptions = {};
+  (product?.options || []).forEach((option) => {
+    const position = option.position;
+    selectedOptions[position] = variant?.[`option${position}`] ?? "";
+  });
+  return selectedOptions;
+}
+
+function setJewelrySwiperWishlistButtonUi(button, isActive) {
+  const icon = button.querySelector("i");
+  if (!icon) return;
+  icon.classList.remove("fa-solid", "fa-regular", "text-red-500", "text-gray-800");
+  if (isActive) {
+    icon.classList.add("fa-solid", "fa-heart", "text-red-500");
+  } else {
+    icon.classList.add("fa-regular", "fa-heart", "text-gray-800");
+  }
+  button.setAttribute("aria-pressed", isActive ? "true" : "false");
+  button.setAttribute(
+    "aria-label",
+    isActive ? "Remove from wishlist" : "Add to wishlist"
+  );
+}
+
+function syncJewelryCarouselWishlistUi() {
+  document
+    .querySelectorAll(
+      ".newJewelrysSwiper [data-jewelry-wishlist], .trendingProductsSwiper [data-jewelry-wishlist]"
+    )
+    .forEach((btn) => {
+      const handle = btn.getAttribute("data-product-handle");
+      if (!handle) return;
+      const product = jelwoCatalogByHandle[handle];
+      if (!product) return;
+      const slide = btn.closest(".swiper-slide");
+      const select = slide?.querySelector("[data-jewelry-variant-select]");
+      const variantId = select ? Number(select.value) : NaN;
+      const variant =
+        (Number.isFinite(variantId)
+          ? product.variants?.find((v) => Number(v.id) === variantId)
+          : null) || product.variants?.[0];
+      if (!variant) return;
+      setJewelrySwiperWishlistButtonUi(btn, isWishlisted(product, variant));
+    });
+}
+
+function syncJewelrySlideAddToCartUi(slideEl) {
+  if (!slideEl) return;
+  const select = slideEl.querySelector("[data-jewelry-variant-select]");
+  const addBtn = slideEl.querySelector("[data-jewelry-add-to-cart]");
+  if (!addBtn || !select) return;
+  const handle = addBtn.getAttribute("data-product-handle");
+  const product = jelwoCatalogByHandle[handle];
+  const variantId = Number(select.value);
+  const variant = product?.variants?.find((v) => Number(v.id) === variantId);
+  const defaultText = addBtn.dataset.defaultText || "Add to cart";
+  if (!variant) {
+    addBtn.disabled = true;
+    addBtn.textContent = defaultText;
+    return;
+  }
+  addBtn.disabled = !variant.available;
+  addBtn.textContent = variant.available ? defaultText : "Out of stock";
+}
+
+function initNewJewelrysSwiperCardActions() {
+  if (initNewJewelrysSwiperCardActions.bound) {
+    return;
+  }
+  initNewJewelrysSwiperCardActions.bound = true;
+
+  document.addEventListener("click", (event) => {
+    const jewelryCarousel = event.target.closest(
+      ".newJewelrysSwiper, .trendingProductsSwiper"
+    );
+    if (!jewelryCarousel) {
+      return;
+    }
+
+    const wishBtn = event.target.closest("[data-jewelry-wishlist]");
+    if (wishBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      const handle = wishBtn.getAttribute("data-product-handle");
+      if (!handle) return;
+      const product = jelwoCatalogByHandle[handle];
+      const slide = wishBtn.closest(".swiper-slide");
+      const select = slide?.querySelector("[data-jewelry-variant-select]");
+      const variantId = select ? Number(select.value) : NaN;
+      const variant =
+        (Number.isFinite(variantId)
+          ? product?.variants?.find((v) => Number(v.id) === variantId)
+          : null) || product?.variants?.[0];
+      if (!product || !variant) return;
+      const selectedOptions = getSelectedOptionsFromVariant(product, variant);
+      toggleWishlistItem(product, variant, selectedOptions);
+      setJewelrySwiperWishlistButtonUi(
+        wishBtn,
+        isWishlisted(product, variant)
+      );
+      return;
+    }
+
+    const viewBtn = event.target.closest("[data-jewelry-view]");
+    if (viewBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      const handle = viewBtn.getAttribute("data-product-handle");
+      if (!handle) return;
+      window.location.href = `product.html?handle=${encodeURIComponent(handle)}`;
+      return;
+    }
+
+    const qtyMinus = event.target.closest("[data-jewelry-qty-minus]");
+    if (qtyMinus) {
+      event.preventDefault();
+      event.stopPropagation();
+      const wrap = qtyMinus.closest(".jewelry-slide-cart");
+      const input = wrap?.querySelector("[data-jewelry-qty-input]");
+      if (!input) return;
+      let v = Number.parseInt(String(input.value).trim(), 10);
+      if (!Number.isFinite(v)) v = 1;
+      input.value = String(Math.max(1, v - 1));
+      return;
+    }
+
+    const qtyPlus = event.target.closest("[data-jewelry-qty-plus]");
+    if (qtyPlus) {
+      event.preventDefault();
+      event.stopPropagation();
+      const wrap = qtyPlus.closest(".jewelry-slide-cart");
+      const input = wrap?.querySelector("[data-jewelry-qty-input]");
+      if (!input) return;
+      let v = Number.parseInt(String(input.value).trim(), 10);
+      if (!Number.isFinite(v)) v = 1;
+      input.value = String(Math.min(99, v + 1));
+      return;
+    }
+
+    const addCart = event.target.closest("[data-jewelry-add-to-cart]");
+    if (addCart) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (addCart.disabled) return;
+      const handle = addCart.getAttribute("data-product-handle");
+      if (!handle) return;
+      const product = jelwoCatalogByHandle[handle];
+      const wrap = addCart.closest(".jewelry-slide-cart");
+      const select = wrap?.querySelector("[data-jewelry-variant-select]");
+      const input = wrap?.querySelector("[data-jewelry-qty-input]");
+      const variantId = select ? Number(select.value) : NaN;
+      const variant =
+        (Number.isFinite(variantId)
+          ? product?.variants?.find((v) => Number(v.id) === variantId)
+          : null) || product?.variants?.[0];
+      if (!product || !variant || !variant.available) return;
+      let qty = Number.parseInt(String(input?.value || "1").trim(), 10);
+      if (!Number.isFinite(qty) || qty < 1) qty = 1;
+      qty = Math.min(99, Math.floor(qty));
+      const selectedOptions = getSelectedOptionsFromVariant(product, variant);
+      const ok = addItemToCart(product, variant, selectedOptions, qty);
+      if (ok) {
+        flashButtonMessage(addCart, "Added", addCart.dataset.defaultText);
+        openStorageDrawer("cart");
+      }
+      return;
+    }
+  });
+
+  document.addEventListener("change", (event) => {
+    const sel = event.target.closest("[data-jewelry-variant-select]");
+    if (!sel) return;
+    if (!sel.closest(".newJewelrysSwiper, .trendingProductsSwiper")) return;
+    const slide = sel.closest(".swiper-slide");
+    if (!slide) return;
+    const handle = sel.getAttribute("data-product-handle");
+    const product = jelwoCatalogByHandle[handle];
+    const variantId = Number(sel.value);
+    const variant = product?.variants?.find((v) => Number(v.id) === variantId);
+    const btn = slide.querySelector("[data-jewelry-wishlist]");
+    if (btn && product && variant) {
+      setJewelrySwiperWishlistButtonUi(btn, isWishlisted(product, variant));
+    }
+    syncJewelrySlideAddToCartUi(slide);
+  });
 }
 
 function getVariantStorageKey(product, variant) {
@@ -482,29 +668,30 @@ function parseCountdownText(countdownText) {
 }
 
 function initSaleCountdown() {
-  const countdownElement = document.getElementById("saleCountdown");
-  if (!countdownElement || countdownElement.dataset.countdownStarted === "true") {
-    return;
-  }
-  const totalSeconds = parseCountdownText(countdownElement.textContent);
-  if (totalSeconds === null) {
-    return;
-  }
-  const endTimestamp = Date.now() + totalSeconds * 1000;
-  let intervalId = null;
-  function updateCountdown() {
-    const secondsRemaining = Math.max(
-      0,
-      Math.floor((endTimestamp - Date.now()) / 1000)
-    );
-    countdownElement.textContent = formatCountdownParts(secondsRemaining);
-    if (secondsRemaining <= 0) {
-      window.clearInterval(intervalId);
+  document.querySelectorAll("[data-sale-countdown]").forEach((countdownElement) => {
+    if (countdownElement.dataset.countdownStarted === "true") {
+      return;
     }
-  }
-  countdownElement.dataset.countdownStarted = "true";
-  updateCountdown();
-  intervalId = window.setInterval(updateCountdown, 1000);
+    const totalSeconds = parseCountdownText(countdownElement.textContent);
+    if (totalSeconds === null) {
+      return;
+    }
+    const endTimestamp = Date.now() + totalSeconds * 1000;
+    let intervalId = null;
+    function updateCountdown() {
+      const secondsRemaining = Math.max(
+        0,
+        Math.floor((endTimestamp - Date.now()) / 1000)
+      );
+      countdownElement.textContent = formatCountdownParts(secondsRemaining);
+      if (secondsRemaining <= 0) {
+        window.clearInterval(intervalId);
+      }
+    }
+    countdownElement.dataset.countdownStarted = "true";
+    updateCountdown();
+    intervalId = window.setInterval(updateCountdown, 1000);
+  });
 }
 
 let activeDrawerType = null;
@@ -830,6 +1017,213 @@ function formatMoney(value) {
   return `Rs. ${amount.toFixed(2)}`;
 }
 
+function formatCheckoutInr(value) {
+  const amount = Number(value || 0);
+  return `₹${amount.toFixed(2)}`;
+}
+
+function getVariantCheckoutLabel(variant) {
+  const parts = [variant.option1, variant.option2, variant.option3].filter(
+    (part) => part != null && String(part).trim() !== ""
+  );
+  return parts.join(" · ") || variant.title || "";
+}
+
+function getProductCardImageUrl(product) {
+  const baseVariant = product.variants?.[0];
+  return (
+    baseVariant?.featured_image?.src ||
+    product.images?.[0]?.src ||
+    ""
+  );
+}
+
+function buildJewelryCarouselSlideHtml(product) {
+  const productUrl = (handle) =>
+    `product.html?handle=${encodeURIComponent(handle || "")}`;
+  const variant = product.variants?.[0];
+  const imgSrc = getProductCardImageUrl(product);
+  const title = escapeHtml(product.title || "");
+  const category = escapeHtml(product.product_type || "Jewelry");
+  const href = productUrl(product.handle);
+  const price = formatMoney(variant?.price);
+  const compareRaw = variant?.compare_at_price;
+  const hasSale =
+    compareRaw != null &&
+    Number(compareRaw) > Number(variant?.price ?? 0);
+
+  const compareLine = hasSale
+    ? `<span class="text-base font-normal leading-tight text-gray-500 line-through">${formatMoney(
+        compareRaw
+      )}</span>`
+    : `<span class="invisible text-base font-normal leading-tight select-none" aria-hidden="true">${formatMoney(
+        "0"
+      )}</span>`;
+
+  const saleBadgeOverlay = `<span class="pointer-events-none absolute left-4 top-4 z-50 rounded px-2 py-1 text-sm font-medium shadow-sm ${
+    hasSale
+      ? "bg-green-500 text-white"
+      : "invisible select-none"
+  }" ${hasSale ? "" : 'aria-hidden="true"'}>Sale</span>`;
+
+  const countdownOverlay = hasSale
+        ? `<div class="pointer-events-none absolute bottom-3 left-1/2 z-[35] w-[calc(100%-1.25rem)] max-w-sm -translate-x-1/2 bg-white/95 px-3 py-2.5 text-center shadow-md backdrop-blur-sm sm:px-4 sm:py-3">
+                          <span data-sale-countdown class="text-sm font-semibold text-neutral-900 tabular-nums sm:text-base">1570 : 07 : 24 : 57</span>
+                        </div>`
+        : `<div class="pointer-events-none absolute bottom-3 left-1/2 z-[35] w-[calc(100%-1.25rem)] max-w-sm -translate-x-1/2 px-3 py-2.5 sm:px-4 sm:py-3" aria-hidden="true">
+                          <span class="invisible text-sm font-semibold tabular-nums sm:text-base">1570 : 07 : 24 : 57</span>
+                        </div>`;
+
+  const imgEsc = escapeHtml(imgSrc);
+  const handleAttr = escapeHtml(product.handle || "");
+  const wishlistOn = Boolean(variant && isWishlisted(product, variant));
+  const heartClasses = wishlistOn
+    ? "fa-solid fa-heart text-red-500"
+    : "fa-regular fa-heart text-gray-800";
+
+  const variants = product.variants || [];
+  const variantOptionsHtml = variants
+    .map((v) => {
+      const label = escapeHtml(
+        String(v.title || v.option1 || v.id || "Variant")
+      );
+      const isSel = variant && Number(v.id) === Number(variant.id);
+      return `<option value="${escapeHtml(String(v.id))}"${
+        isSel ? " selected" : ""
+      }>${label}</option>`;
+    })
+    .join("");
+
+  const addBtnDisabledAttr = variant && !variant.available ? " disabled" : "";
+  const addBtnLabel =
+    variant && !variant.available ? "Out of stock" : "Add to cart";
+
+  const hasCartPanel = variants.length > 0;
+  const titleLinkHoverClasses = hasCartPanel ? " group-hover:hidden" : "";
+
+  const cartPanelHtml =
+    hasCartPanel
+      ? `<div class="jewelry-slide-cart pointer-events-auto w-full max-w-[17rem] space-y-3">
+          <div class="flex gap-2">
+            <select data-jewelry-variant-select data-product-handle="${handleAttr}" class="min-w-0 flex-1 cursor-pointer rounded border border-gray-300 bg-white py-2 pl-2 pr-2 text-sm text-gray-900" aria-label="Choose variant">
+              ${variantOptionsHtml}
+            </select>
+            <div class="flex shrink-0 items-stretch overflow-hidden rounded border border-gray-300 bg-white">
+              <button type="button" data-jewelry-qty-minus class="px-2.5 text-lg font-semibold leading-none text-gray-700 hover:bg-gray-100" aria-label="Decrease quantity">−</button>
+              <input type="text" readonly data-jewelry-qty-input value="1" class="w-9 shrink-0 border-x border-gray-200 bg-white py-2 text-center text-sm font-semibold tabular-nums" inputmode="numeric" aria-live="polite" />
+              <button type="button" data-jewelry-qty-plus class="px-2.5 text-lg font-semibold leading-none text-gray-700 hover:bg-gray-100" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <button type="button" data-jewelry-add-to-cart data-product-handle="${handleAttr}" data-default-text="Add to cart" class="cursor-pointer bg-transparent text-center text-sm font-semibold uppercase tracking-wide text-primary underline decoration-primary underline-offset-4 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"${addBtnDisabledAttr}>
+              ${addBtnLabel}
+            </button>
+          </div>
+        </div>`
+      : "";
+
+  return `
+                <div class="swiper-slide group flex h-auto self-stretch">
+                  <div class="relative flex h-[29rem] w-full flex-1 flex-col overflow-hidden rounded-lg bg-gray-100 sm:h-[30rem]">
+                    <div class="relative z-10 flex min-h-0 flex-1 flex-col">
+                      <div class="relative mb-6 min-h-[13rem] w-full flex-1 shrink-0 overflow-hidden bg-neutral-200">
+                        <img
+                              src="${imgEsc}"
+                              alt=""
+                              class="absolute inset-0 z-0 h-full w-full object-cover object-center"
+                            >
+                        <a href="${href}" class="absolute inset-0 z-10" aria-label="${title}"></a>
+                        ${saleBadgeOverlay}
+                        <div class="pointer-events-none absolute inset-0 z-20 bg-primary/50 opacity-0 transition duration-300 group-hover:opacity-100"></div>
+                          ${countdownOverlay}
+                          <div class="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-2 px-2 pb-2 pt-10 opacity-0 transition duration-300 group-hover:opacity-100 sm:gap-3 sm:pb-3">
+                            <div class="flex shrink-0 items-center justify-center gap-4">
+                              <button type="button" data-jewelry-wishlist data-product-handle="${handleAttr}" aria-pressed="${wishlistOn ? "true" : "false"}" aria-label="${wishlistOn ? "Remove from wishlist" : "Add to wishlist"}" class="pointer-events-auto relative z-40 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-md transition-smooth hover:bg-black hover:text-white">
+                                  <i class="${heartClasses}" aria-hidden="true"></i>
+                              </button>
+                              <button type="button" data-jewelry-view data-product-handle="${handleAttr}" aria-label="View product" class="pointer-events-auto relative z-40 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-md transition-smooth hover:bg-black hover:text-white">
+                                  <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="horizontal-line shrink-0 border-gray-200"></div>
+                      <div class="relative z-10 flex min-h-[10.5rem] shrink-0 flex-col justify-center bg-gray-100">
+                        <a href="${href}" class="relative z-10 flex flex-col gap-1 px-2 py-3 text-center text-current no-underline hover:opacity-90${titleLinkHoverClasses}">
+                          <span class="text-sm uppercase tracking-wide text-gray-600">${category}</span>
+                          <h3 class="line-clamp-2 min-h-[2.5rem] text-base font-semibold leading-snug">${title}</h3>
+                          <div class="flex min-h-[3.25rem] flex-col items-center justify-center gap-0.5 text-primary">
+                            <span class="text-lg font-semibold leading-none">${price}</span>
+                            ${compareLine}
+                          </div>
+                        </a>
+                        ${
+                          cartPanelHtml
+                            ? `<div class="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 px-3 py-3 opacity-0 invisible transition-opacity duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100">${cartPanelHtml}</div>`
+                            : ""
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+}
+
+function renderJewelryProductsSwiper(selector, productsSlice) {
+  const swiperEl = document.querySelector(selector);
+  const wrapper = swiperEl?.querySelector(".swiper-wrapper");
+  if (!swiperEl || !wrapper || !Array.isArray(productsSlice)) {
+    return;
+  }
+
+  if (!productsSlice.length) {
+    wrapper.innerHTML = "";
+    return;
+  }
+
+  wrapper.innerHTML = productsSlice.map(buildJewelryCarouselSlideHtml).join("");
+  wrapper
+    .querySelectorAll(".swiper-slide")
+    .forEach(syncJewelrySlideAddToCartUi);
+
+  createSwiperIfPresent(selector, {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: productsSlice.length > 1,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true
+    },
+    breakpoints: {
+      0: { slidesPerView: 1 },
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+      1280: { slidesPerView: 4 }
+    }
+  });
+  initSaleCountdown();
+  syncJewelryCarouselWishlistUi();
+  requestAnimationFrame(() => {
+    syncJewelryCarouselWishlistUi();
+  });
+}
+
+function renderNewJewelrysSwiper(products) {
+  if (!Array.isArray(products)) {
+    return;
+  }
+  renderJewelryProductsSwiper(".newJewelrysSwiper", products.slice(0, 12));
+}
+
+function renderTrendingProductsSwiper(products) {
+  const section = document.getElementById("trendingProductsSection");
+  const slice = Array.isArray(products) ? products.slice(12, 24) : [];
+  if (section) {
+    section.classList.toggle("hidden", slice.length === 0);
+  }
+  renderJewelryProductsSwiper(".trendingProductsSwiper", slice);
+}
+
 function formatWeight(grams) {
   const weight = Number(grams);
   if (!Number.isFinite(weight) || weight <= 0) {
@@ -868,6 +1262,24 @@ function calculateSalePercent(compareAtPrice, price) {
 function getProductHandleFromUrl() {
   const searchParams = new URLSearchParams(window.location.search);
   return searchParams.get("handle") || searchParams.get("id");
+}
+
+function getCheckoutQuantityFromUrl() {
+  const raw = new URLSearchParams(window.location.search).get("quantity");
+  const value = Number(raw);
+  if (!Number.isFinite(value) || value < 1) {
+    return 1;
+  }
+  return Math.floor(value);
+}
+
+function getCheckoutVariantIdFromUrl() {
+  const raw = new URLSearchParams(window.location.search).get("variant");
+  if (!raw) {
+    return null;
+  }
+  const id = Number(raw);
+  return Number.isFinite(id) ? id : null;
 }
 
 function getSummaryFromHtml(html) {
@@ -1095,6 +1507,118 @@ function renderProductDescription(bodyHtml, productTitle) {
   descriptionContainer.querySelectorAll(".desc-block p img").forEach((icon) => {
     icon.classList.add("product-description-icon");
   });
+}
+
+function renderBuyItNowOrderSummary(products) {
+  const root = document.getElementById("buyItNowOrderSummary");
+  if (!root || !Array.isArray(products)) {
+    return;
+  }
+
+  const handle = getProductHandleFromUrl();
+  const quantity = getCheckoutQuantityFromUrl();
+  const variantId = getCheckoutVariantIdFromUrl();
+
+  if (!handle) {
+    root.innerHTML = `
+      <div class="rounded-xl border border-gray-200 bg-gray-100 p-6 text-gray-700 shadow-sm">
+        <p class="mb-2 text-sm">No product was passed to checkout.</p>
+        <a href="./index.html" class="text-sm font-medium text-blue-600 underline">Continue shopping</a>
+      </div>`;
+    document.title = "Checkout | Jelwo";
+    return;
+  }
+
+  const product = products.find((item) => item.handle === handle) || null;
+  if (!product) {
+    root.innerHTML = `
+      <div class="rounded-xl border border-gray-200 bg-gray-100 p-6 text-gray-700 shadow-sm">
+        <p class="mb-2 text-sm">We could not find that product.</p>
+        <a href="./index.html" class="text-sm font-medium text-blue-600 underline">Continue shopping</a>
+      </div>`;
+    document.title = "Checkout | Jelwo";
+    return;
+  }
+
+  let variant =
+    (variantId
+      ? product.variants?.find((v) => Number(v.id) === variantId)
+      : null) || product.variants?.[0] || null;
+
+  if (!variant) {
+    root.innerHTML = `
+      <div class="rounded-xl border border-gray-200 bg-gray-100 p-6 text-gray-700 shadow-sm">
+        <p class="mb-2 text-sm">This product has no purchasable variant.</p>
+        <a href="./product.html?handle=${encodeURIComponent(handle)}" class="text-sm font-medium text-blue-600 underline">Back to product</a>
+      </div>`;
+    document.title = "Checkout | Jelwo";
+    return;
+  }
+
+  const imageSrc =
+    variant.featured_image?.src ||
+    product.images?.[0]?.src ||
+    getProductCardImageUrl(product);
+  const imgEsc = escapeHtml(imageSrc);
+  const titleEsc = escapeHtml(product.title || "");
+  const variantLabel = getVariantCheckoutLabel(variant);
+  const variantEsc = escapeHtml(variantLabel);
+  const unit = Number(variant.price || 0);
+  const subtotal = unit * quantity;
+  const estimatedTaxRate = 0.18;
+  const estimatedTaxes = Math.round(subtotal * estimatedTaxRate * 100) / 100;
+  const total = Math.round((subtotal + estimatedTaxes) * 100) / 100;
+
+  document.title = `Checkout — ${product.title || "Jelwo"} | Jelwo`;
+
+  root.innerHTML = `
+    <div class="rounded-xl border border-gray-200 bg-gray-100 p-6 shadow-sm">
+      <div class="flex justify-between gap-4 border-b border-gray-200 pb-6">
+        <div class="flex min-w-0 flex-1 gap-4">
+          <div class="relative shrink-0">
+            <div class="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-white">
+              <img src="${imgEsc}" alt="" class="h-full w-full object-cover" width="80" height="80">
+            </div>
+            <span class="absolute -right-1.5 -top-1.5 flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-black px-1.5 text-xs font-semibold leading-none text-white" aria-label="Quantity ${quantity}">${quantity}</span>
+          </div>
+          <div class="flex min-w-0 flex-col justify-center gap-1">
+            <p class="text-base font-semibold leading-snug text-gray-900">${titleEsc}</p>
+            <p class="text-sm text-gray-500">${variantEsc}</p>
+          </div>
+        </div>
+        <p class="shrink-0 text-base font-medium text-gray-900">${formatCheckoutInr(subtotal)}</p>
+      </div>
+
+      <div class="flex flex-col gap-4 border-b border-gray-200 py-6 text-sm text-gray-800">
+        <div class="flex justify-between gap-4">
+          <span>Subtotal</span>
+          <span class="font-medium text-gray-900">${formatCheckoutInr(subtotal)}</span>
+        </div>
+        <div class="flex justify-between gap-4">
+          <span>Shipping</span>
+          <span class="max-w-[11rem] text-right text-gray-500">Enter shipping address</span>
+        </div>
+        <div class="flex justify-between gap-4">
+          <span class="inline-flex items-center gap-1.5 text-gray-800">
+            Estimated taxes
+            <i class="fa-regular fa-circle-question text-xs text-gray-400" title="Estimated GST for demo (18% of subtotal)"></i>
+          </span>
+          <span class="font-medium text-gray-900">${formatCheckoutInr(estimatedTaxes)}</span>
+        </div>
+      </div>
+
+      <div class="flex items-end justify-between gap-4 pt-6">
+        <span class="text-lg font-semibold text-gray-900">Total</span>
+        <div class="text-right">
+          <span class="text-xs font-medium uppercase tracking-wide text-gray-500">INR</span>
+          <span class="ml-2 text-2xl font-bold tabular-nums text-gray-900">${formatCheckoutInr(total)}</span>
+        </div>
+      </div>
+
+      <a href="./product.html?handle=${encodeURIComponent(product.handle)}" class="mt-6 inline-block text-sm font-medium text-blue-600 underline hover:text-blue-800">
+        Edit product or quantity
+      </a>
+    </div>`;
 }
 
 function renderProductNotFound(handle) {
@@ -1332,13 +1856,29 @@ function renderProductPage(products) {
         button.style.borderColor = isActive ? "#111827" : "#e5e7eb";
       });
     }
+    updateBuyItNowProductLink();
   }
 
   function getRequestedQuantity() {
     return Number(document.getElementById("quantityInput")?.value || 1);
   }
 
+  function updateBuyItNowProductLink() {
+    const link = document.getElementById("buyItNowLink");
+    if (!link || !currentVariant) return;
+    const rawQty = getRequestedQuantity();
+    const qty =
+      Number.isFinite(rawQty) && rawQty >= 1 ? Math.floor(rawQty) : 1;
+    const params = new URLSearchParams({
+      handle: product.handle,
+      variant: String(currentVariant.id || ""),
+      quantity: String(qty)
+    });
+    link.setAttribute("href", `buyItNow.html?${params.toString()}`);
+  }
+
   updateSelectedVariant(false);
+  window.addEventListener("jelwo-product-qty-change", updateBuyItNowProductLink);
   if (addToCartBtn) {
     addToCartBtn.dataset.defaultText = "Add to cart";
     addToCartBtn.addEventListener("click", () => {
@@ -1379,6 +1919,7 @@ if (increaseBtn && quantityInput) {
   increaseBtn.addEventListener("click", () => {
     quantity += 1;
     quantityInput.value = quantity;
+    window.dispatchEvent(new Event("jelwo-product-qty-change"));
   });
 }
 
@@ -1387,16 +1928,19 @@ if (decreaseBtn && quantityInput) {
     if (quantity > 1) {
       quantity -= 1;
       quantityInput.value = quantity;
+      window.dispatchEvent(new Event("jelwo-product-qty-change"));
     }
   });
 }
 
 initStorageDrawerTriggers();
 initSaleCountdown();
+initNewJewelrysSwiperCardActions();
 updateHeaderCounts();
 window.addEventListener("storage", () => {
   updateHeaderCounts();
   renderStorageDrawer();
+  syncJewelryCarouselWishlistUi();
 });
 
 const deliveryBtn1 = document.getElementById("deliveryBtn1");
@@ -1452,8 +1996,15 @@ fetch("./jelwo-product.json")
   .then((data) => {
     const products = data.products || [];
 
+    jelwoCatalogByHandle = Object.fromEntries(
+      products.map((product) => [product.handle, product])
+    );
+
     createDropdown(products);
     renderProductPage(products);
+    renderNewJewelrysSwiper(products);
+    renderTrendingProductsSwiper(products);
+    renderBuyItNowOrderSummary(products);
   })
   .catch((error) => {
     console.log("ERROR:", error);

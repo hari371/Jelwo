@@ -144,7 +144,7 @@
                   <span id="productSummary">Care for fiber: 30% more recycled polyester. We label garments manufactured using environmentally friendly technologies and raw materials with the Join Life label.</span>
                   <div class="flex justify-between px-6 py-4 border border-red-500 bg-red-500/10">
                     <h3 class="text-xl text-red-500 font-semibold">Hurry up! Sale ends in:</h3>
-                    <span id="saleCountdown" class="text-xl text-red-500 font-semibold">1570 : 07 : 24 : 57</span>
+                    <span id="saleCountdown" data-sale-countdown class="text-xl text-red-500 font-semibold">1570 : 07 : 24 : 57</span>
                   </div>
                   <div id="sizeSection" class="flex flex-col gap-4">
                     <h3>Size:<span id="selectedSizeLabel" class="pl-2">28</span></h3>
@@ -187,10 +187,12 @@
                       </button>
                     </div>
                     <div class="w-[50%]">
-                      <a href="./buyItNow.html" class="">
-                        <button class="btn uppercase w-full border-2 bg-black border-black text-white font-semibold hover:bg-primary  hover:border-transparent transition-smooth ">
-                          buy it now
-                        </button>
+                      <a
+                        id="buyItNowLink"
+                        href="./buyItNow.html"
+                        class="btn uppercase flex w-full items-center justify-center border-2 border-black bg-black py-3 font-semibold text-white transition-smooth hover:border-transparent hover:bg-primary"
+                      >
+                        buy it now
                       </a>
                     </div>
                   </div>

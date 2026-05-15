@@ -82,6 +82,24 @@
   background-color: rgba(255, 255, 255, 0.4); /* transparent white film */
   }
 
+  .newJewelrysSwiper .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .newJewelrysSwiper .swiper-slide {
+    height: auto;
+    box-sizing: border-box;
+  }
+
+  .trendingProductsSwiper .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .trendingProductsSwiper .swiper-slide {
+    height: auto;
+    box-sizing: border-box;
+  }
+
   .flip-icon {
     display: inline-block;
     transition: transform 0.6s ease;

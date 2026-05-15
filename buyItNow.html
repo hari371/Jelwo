@@ -19,8 +19,8 @@
         </a>
     </section>
     <div class="horizontal-line"></div>
-    <section class="grid grid-cols-1 lg:grid-cols-2 divide-x w-[80%] mx-auto pt-8 mb-20">
-        <div class="flex flex-col  bg-white order-last lg:order-first px-10 gap-10">
+    <section class="mx-auto mb-20 grid w-[90%] max-w-6xl grid-cols-1 items-start gap-10 pt-8 lg:grid-cols-2 lg:gap-12">
+        <div class="flex flex-col  bg-white order-last lg:order-first px-6 sm:px-10 gap-10 lg:min-w-0">
             <div class="flex flex-col gap-4">
                 <div class="flex justify-between">
                     <h3 class="font-semibold">Contact</h3>
@@ -275,7 +275,11 @@
                 </div>
             </div>
         </div>
-        <div class="bg-gray-200 order-first lg:order-last"></div>
+        <aside
+          id="buyItNowOrderSummary"
+          class="order-first w-full lg:sticky lg:top-24 lg:z-10 lg:order-last lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto"
+        >
+        </aside>
     </section>
 
     <script src="./main.js"></script>
